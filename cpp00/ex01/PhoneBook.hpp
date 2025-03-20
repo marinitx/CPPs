@@ -16,34 +16,34 @@
 #define PINK "\033[95m"
 
 #define GOODBYE_MESSAGE \
-    "  , ; ,   .-'\"\"\"'-.   , ; ,\n" \
-    "  \\\\|/  .'         '.  \\|//\n" \
-    "   \\-;-/   ()   ()   \\-;-/\n" \
-    "   // ;               ; \\\\\n" \
-    "  //__; :.         .; ;__\\\\\n" \
-    " `-----\'.'-.....-'.'/-----'\n" \
-    "        '.'.-.-,_.'.'\n" \
-    "byebye    '(  (..-'\n" \
-    "            '-'\n"
+	"  , ; ,   .-'\"\"\"'-.   , ; ,\n" \
+	"  \\\\|/  .'         '.  \\|//\n" \
+	"   \\-;-/   ()   ()   \\-;-/\n" \
+	"   // ;               ; \\\\\n" \
+	"  //__; :.         .; ;__\\\\\n" \
+	" `-----\'.'-.....-'.'/-----'\n" \
+	"        '.'.-.-,_.'.'\n" \
+	"byebye    '(  (..-'\n" \
+	"            '-'\n"
 
 class PhoneBook
 {
-    public:
-        PhoneBook();
-        ~PhoneBook();
-        void welcome();
-        void add();
-        void search();
-        void getindex();
+	public:
+		PhoneBook();
+		~PhoneBook();
+		void welcome();
+		void add();
+		void search();
+		void getindex();
 
-    private:
-        Contact contacts[8];
-        int     _totalContacts;
-        int     _oldestContact;
-        void    _add_info(std::string field, Contact& info);
-        void    _print_table(int i, Contact contact);
-        void    _print_index(int i, Contact contact);
-        bool    _is_digit(const std::string& str);
+	private:
+		Contact contacts[8];
+		int		_totalContacts;
+		int		_oldestContact;
+		void	_add_info(std::string field, Contact& info);
+		void	_print_table(int i, Contact contact);
+		void	_print_index(int i, Contact contact);
+		bool	_is_digit(const std::string& str);
 };
 
 #endif

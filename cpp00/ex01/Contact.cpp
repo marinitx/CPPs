@@ -18,7 +18,6 @@ std::string Contact::get_value(std::string field) const
         return this->_darkest_secret;
     else
         return ("");
-    //preguntar al usuario por cada una de las variables
 }
 
 void Contact::set_value(std::string field, std::string value) 
