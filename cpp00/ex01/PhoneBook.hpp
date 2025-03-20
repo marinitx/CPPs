@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <iomanip>
 
 class PhoneBook
 {
@@ -20,6 +21,7 @@ class PhoneBook
         int     _totalContacts;
         int     _oldestContact;
         void    _add_info(std::string field, Contact& info);
+        void    _print_table(int i, Contact contact);
 };
 
 #endif

@@ -10,7 +10,7 @@ class Contact
     public:
         Contact(void);
         ~Contact(void);
-        void get_value();
+        std::string get_value(std::string field);
         void set_value(std::string field, std::string str);
 
     private:

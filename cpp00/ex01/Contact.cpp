@@ -4,8 +4,20 @@ Contact::Contact() {};
 
 Contact::~Contact() {};
 
-void Contact::get_value()
+std::string Contact::get_value(std::string field)
 {
+    if (field == "first name")
+        return this->_first_name;
+    else if (field == "last name")
+        return this->_last_name;
+    else if (field == "nickname")
+        return this->_nickname;
+    else if (field == "phone number")
+        return this->_phone_number;
+    else if (field == "darkest secret")
+        return this->_darkest_secret;
+    else
+        return ("");
     //preguntar al usuario por cada una de las variables
 }
 
