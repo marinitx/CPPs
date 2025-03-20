@@ -2,16 +2,18 @@
 #define CONTACT_HPP
 
 #include <iostream>
-#include <cctype>
 #include <string>
+#include <cctype>
+#include <sstream>
+#include <iomanip>
 
 class Contact
 {
     public:
-        Contact(void);
-        ~Contact(void);
-        std::string get_value(std::string field);
-        void set_value(std::string field, std::string str);
+        Contact();
+        ~Contact();
+        std::string get_value(std::string field) const;
+        void set_value(std::string field, std::string value);
 
     private:
         std::string _first_name;

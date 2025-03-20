@@ -4,7 +4,7 @@ Contact::Contact() {};
 
 Contact::~Contact() {};
 
-std::string Contact::get_value(std::string field)
+std::string Contact::get_value(std::string field) const
 {
     if (field == "first name")
         return this->_first_name;
@@ -21,16 +21,16 @@ std::string Contact::get_value(std::string field)
     //preguntar al usuario por cada una de las variables
 }
 
-void Contact::set_value(std::string field, std::string str) 
+void Contact::set_value(std::string field, std::string value) 
 {
     if (field == "first name")
-        this->_first_name = str;
+        this->_first_name = value;
     else if (field == "last name")
-        this->_last_name = str;
+        this->_last_name = value;
     else if (field == "nickname")
-        this->_nickname = str;
+        this->_nickname = value;
     else if (field == "phone number")
-        this->_phone_number = str;
+        this->_phone_number = value;
     else if (field == "darkest secret")
-        this->_darkest_secret = str;
+        this->_darkest_secret = value;
 }

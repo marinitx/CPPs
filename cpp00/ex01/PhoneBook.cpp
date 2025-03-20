@@ -3,9 +3,9 @@
 PhoneBook::PhoneBook() 
     : _totalContacts(0), _oldestContact(0) {}
 
-PhoneBook::~PhoneBook() {
-	std::cout << "Bye bye! <3" << std::endl;
-	return;
+PhoneBook::~PhoneBook() 
+{
+		std::cout << PINK << GOODBYE_MESSAGE << RESET;
 }
 
 void PhoneBook::_add_info(std::string field, Contact& info)
@@ -14,12 +14,12 @@ void PhoneBook::_add_info(std::string field, Contact& info)
 
 	while (true)
 	{
-		std::cout << "Enter the contact's " + field + ":" << std::endl;
+		std::cout << INSTRUCTION << "Enter the contact's " + field + ":" << RESET << std::endl;
 		std::getline(std::cin, answer);
 
 		if (answer.length() == 0)
 		{
-			std::cout << "Please, enter the damn contact's " + field + "!" << std::endl;
+			std::cout << ERROR << "Please, enter the damn contact's " + field + "!" << RESET << std::endl;
 			continue;
 		}
 
@@ -32,7 +32,9 @@ void PhoneBook::add()
 {
 	Contact contact;
 
-	std::cout << "Seems like you want to ADD a new contact... Great! Just note you can only ADD 8 contacts or they will be replaced." << std::endl;
+	std::cout << std::endl;
+	std::cout << INFO << "Seems like you want to ADD a new contact... Great! Just note you can only ADD 8 contacts or they will be replaced." 
+		<< RESET << std::endl;
 	_add_info("first name", contact);
 	_add_info("last name", contact);
 	_add_info("nickname", contact);
@@ -43,39 +45,33 @@ void PhoneBook::add()
 	{
 		this->contacts[_totalContacts] = contact;
 		_totalContacts++;
+		std::cout << SUCCESS << "Contact added successfully!" << RESET << std::endl;
 	}
 	else
 	{
-		std::cout << "Oops! The list of contacts is full, first contact will be replaced" << std::endl;
-		this->contacts[0] = contact;
+		std::cout << ERROR << "Oops! The list of contacts is full, oldest contact will be replaced" << RESET << std::endl;
+		this->contacts[_oldestContact] = contact;
+		_oldestContact = (_oldestContact + 1) % 8;
 	}
-	std::cout << "done" << std::endl; //*******comprobación */
-}
-
-void PhoneBook::_print_table(int i, Contact contact)
-{
-	//falta truncar para que no se pase de 10 caracteres :D
-	std::cout << std::setw(10) << i << "|";
-	std::cout << std::setw(10) << contact.get_value("first name") << "|";
-	std::cout << std::setw(10) << contact.get_value("last name") << "|";
-	std::cout << std::setw(10) << contact.get_value("nickname") << "|" << std::endl;
+	std::cout << std::endl;
 }
 
 void PhoneBook::search()
 {
 	int i;
 
-	i = 1;
+	i = 0;
 	if (this->_totalContacts == 0)
 	{
-		std::cout << "You have no contacts added yet. Would you like to ADD a contact?" << std::endl;
+		std::cout << INFO << "You have no contacts added yet. Would you like to ADD a contact?"
+			<< RESET << std::endl;
 		return;
 	}
+	std::cout << INFO << "Here are your contacts:" << RESET << std::endl;
 	while (i < this->_totalContacts)
 	{
 		_print_table(i, this->contacts[i]);
 		i++;
 	}
-	// preguntar al usuario por el index y desplegar la info del contacto
-	// comprobar que el index está entre los valores permitidos
+	getindex();
 }
