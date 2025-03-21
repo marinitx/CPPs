@@ -2,31 +2,29 @@
 #include "Contact.hpp"
 
 bool PhoneBook::_is_digit(const std::string& str) {
-    if (str.empty()) return false;
-    for (size_t i = 0; i < str.length(); i++) {
-        if (!std::isdigit(static_cast<unsigned char>(str[i]))) {
-            return false;
-        }
-    }
-    return true;
+	if (str.empty()) return false;
+	for (size_t i = 0; i < str.length(); i++) {
+		if (!std::isdigit(static_cast<unsigned char>(str[i]))) {
+			return false;
+		}
+	}
+	return true;
 }
 
 void PhoneBook::_print_table(int i, Contact contact) 
 {
-    std::ostringstream oss;
-    oss << i;
-    std::string index = oss.str();
-    std::string fname = contact.get_value("first name");
-    if (fname.length() > 10) fname = fname.substr(0, 9) + ".";
-    std::string lname = contact.get_value("last name");
-    if (lname.length() > 10) lname = lname.substr(0, 9) + ".";
-    std::string nname = contact.get_value("nickname");
-    if (nname.length() > 10) nname = nname.substr(0, 9) + ".";
+	std::string fname = contact.get_value("first name");
+	if (fname.length() > 10) fname = fname.substr(0, 9) + ".";
+	std::string lname = contact.get_value("last name");
+	if (lname.length() > 10) lname = lname.substr(0, 9) + ".";
+	std::string nname = contact.get_value("nickname");
+	if (nname.length() > 10) nname = nname.substr(0, 9) + ".";
 
-    std::cout << INFO << std::setw(10) << index << "|" 
-              << std::setw(10) << fname << "|" 
-              << std::setw(10) << lname << "|" 
-              << std::setw(10) << nname << "|" << RESET << std::endl;
+	std::cout << INFO
+			<< std::setw(10) << i << "|" 
+			<< std::setw(10) << fname << "|" 
+			<< std::setw(10) << lname << "|" 
+			<< std::setw(10) << nname << "|" << RESET << std::endl;
 }
 
 void PhoneBook::_print_index(int i, Contact contact)
@@ -59,11 +57,14 @@ void PhoneBook::getindex()
 				<< RESET << std::endl;
 			continue;
 		}
-        if (!_is_digit(answer))
-        {
-            std::cout << ERROR << "Trying to trick me? Haha, only digits allowed!" << RESET << std::endl;
-            continue;
-        }
+		if (!_is_digit(answer))
+		{
+			if (answer == "EXIT")
+				std::cout << ERROR << "Before you go, give me an id to show you please :(" << RESET <<std::endl;
+			else
+				std::cout << ERROR << "Trying to trick me? Haha, only digits allowed!" << RESET << std::endl;
+			continue;
+		}
 		if (id < 0 || id > this->_totalContacts - 1)
 		{
 			std::cout << ERROR << "That's not even a possible id... Try again or it will take forever" 

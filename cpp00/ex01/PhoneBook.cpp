@@ -67,7 +67,11 @@ void PhoneBook::search()
 			<< RESET << std::endl;
 		return;
 	}
-	std::cout << INFO << "Here are your contacts:" << RESET << std::endl;
+	std::cout << INFO << "Here are your contacts:" << std::endl 
+		<< std::setw(10) << "Index" << "|"
+		<< std::setw(10) << "First name" << "|"
+		<< std::setw(10) << "Last name" << "|"
+		<< std::setw(10) << "Nickname" << "|" << std::endl;
 	while (i < this->_totalContacts)
 	{
 		_print_table(i, this->contacts[i]);
