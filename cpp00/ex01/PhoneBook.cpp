@@ -22,6 +22,11 @@ void PhoneBook::_add_info(std::string field, Contact& info)
 			std::cout << ERROR << "Please, enter the damn contact's " + field + "!" << RESET << std::endl;
 			continue;
 		}
+		if (field == "phone number" && !_is_digit(answer))
+		{
+			std::cout << ERROR << "A phone number must be a NUMBER! I thought it was obvious" << RESET << std::endl;
+			continue;
+		}
 
 		break;
 	}
