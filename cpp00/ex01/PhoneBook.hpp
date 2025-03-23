@@ -7,6 +7,7 @@
 #include <cctype>
 #include <sstream>
 #include <iomanip>
+#include <stdlib.h>
 
 #define ERROR "\033[91m" //red
 #define INSTRUCTION "\033[95m" //purple
