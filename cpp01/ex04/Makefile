@@ -1,4 +1,4 @@
-NAME = losers
+NAME = replace
 
 CXX = c++
 
