@@ -16,7 +16,7 @@ int replaceStr(const std::string &filename, const std::string &s1, const std::st
         return 1;
     }
 
-	std::ifstream inFile(filename);
+	std::ifstream inFile(filename.c_str());
 	if (!inFile)
 	{
 		std::cerr << "Error: could not open file " << filename << std::endl;
@@ -24,7 +24,7 @@ int replaceStr(const std::string &filename, const std::string &s1, const std::st
 	}
 
 	std::string newFilename = filename + ".replace";
-	std::ofstream outFile(newFilename);
+	std::ofstream outFile(newFilename.c_str());
 
 	if (!outFile)
 	{
