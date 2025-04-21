@@ -4,7 +4,7 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = Fixed.cpp main.cpp
+SRCS = ClapTrap.cpp main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
