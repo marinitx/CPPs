@@ -1,10 +1,10 @@
 #include "Brain.hpp"
 
-Brain::Brain()
+Brain::Brain(void)
 {
 	for (size_t i = 0; i < 100; i++)
 	{
-		_ideas[i] = ("idea " + std::to_string(i));
+		_ideas[i] = "idea ";
 	}
 	std::cout << "Default Brain constructor" << std::endl;
 }
