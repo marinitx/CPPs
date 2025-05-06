@@ -49,7 +49,13 @@ Character & Character::operator=(Character const & other)
 
         //copio materias que están dejadas
         for (int i = 0; i < 100; ++i)
-            _dropped[i] = other._dropped[i];
+        {
+            if (other._dropped[i])
+                _dropped[i] = other._dropped[i]->clone();
+            else
+                _dropped[i] = NULL;
+        }
+    
     }
     return *this;
 }
