@@ -2,7 +2,7 @@ NAME = brain
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRCS = main.cpp Dog.cpp Animal.cpp Cat.cpp Brain.cpp
 
