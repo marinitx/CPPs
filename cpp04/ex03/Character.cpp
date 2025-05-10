@@ -1,118 +1,148 @@
 #include "Character.hpp"
+#include "Cure.hpp"
+#include "Ice.hpp"
 #include <iostream>
 
-Character::Character(std::string const & name) : _name(name)
+Character::Character(void)
 {
-    for (int i = 0; i < 4; ++i)
-        _inventory[i] = NULL;
-    for (int i = 0; i < 100; ++i)
-        _dropped[i] = NULL; //aseguramos así que el array de las materias que dejo también se inicializa en null
+	// std::cout << "Default Character constructor called" << std::endl;
+	this->_name = "Default Character";
+	for (size_t i = 0; i < 4; i++)
+	{
+		_materias[i] = NULL;
+	}
+	for (size_t i = 0; i < 100; i++)
+	{
+		_addresses[i] = NULL;
+	}
 }
 
-Character::Character(const Character & other) : _name(other._name)
+Character::Character(std::string name)
 {
-    for (int i = 0; i < 4; ++i)
-    {
-        if (other._inventory[i])
-            _inventory[i] = other._inventory[i]->clone();
-        else
-            _inventory[i] = NULL;
-    }
-    for (int i = 0; i < 100; ++i)
-        _dropped[i] = NULL; //si hay materias que he dejado entonces también se copian
+	this->_name = name;
+	for (size_t i = 0; i < 4; i++)
+	{
+		_materias[i] = NULL;
+	}
+	for (size_t i = 0; i < 100; i++)
+	{
+		_addresses[i] = NULL;
+	}
 }
 
-Character & Character::operator=(Character const & other)
+Character::~Character(void)
 {
-    if (this != &other)
-    {
-        _name = other._name;
-        
-        //libero materia existnte
-        for (int i = 0; i < 4; ++i)
-        {
-            if (_inventory[i])
-            {
-                delete _inventory[i];
-                _inventory[i] = NULL;
-            }
-        }
-
-        //copio desde el objeto other
-        for (int i = 0; i < 4; ++i)
-        {
-            if (other._inventory[i])
-                _inventory[i] = other._inventory[i]->clone();
-            else
-                _inventory[i] = NULL;
-        }
-
-        //copio materias que están dejadas
-        for (int i = 0; i < 100; ++i)
-        {
-            if (other._dropped[i])
-                _dropped[i] = other._dropped[i]->clone();
-            else
-                _dropped[i] = NULL;
-        }
-    
-    }
-    return *this;
+	// std::cout << "Character destructor called" << std::endl;
+	// for (int i = 0; i < 100; ++i)
+	// {
+	// 	if (_addresses[i] != NULL)
+	// 	{
+	// 		delete _addresses[i];
+	// 		_addresses[i] = NULL;
+	// 	}
+	// }
+	// delete[] _addresses;
 }
 
-Character::~Character()
+Character &Character::operator=(const Character &c)
 {
-    for (int i = 0; i < 4; ++i)
-        if (_inventory[i])
-            delete _inventory[i];
+	if (this != &c)
+	{
+		for (size_t i = 0; i < 4; ++i)
+		{
+			delete _materias[i];
+			_materias[i] = NULL;
+		}
+		for (size_t i = 0; i < 100; ++i)
+		{
+			delete _addresses[i];
+			_addresses[i] = NULL;
+		}
 
-    for (int i = 0; i < 100; ++i)
-        if (_dropped[i])
-            delete _dropped[i];
+		for (size_t i = 0; i < 4; ++i)
+		{
+			if (c._materias[i])
+			{
+				_materias[i] = c._materias[i]->clone();
+			}
+		}
+
+		for (size_t i = 0; i < 100; ++i)
+		{
+			if (c._addresses[i])
+			{
+				_addresses[i] = c._addresses[i]->clone();
+			}
+		}
+
+		_name = c._name;
+	}
+
+	this->_name = c._name;
+	return *this;
 }
 
-std::string const & Character::getName() const
+Character::Character(const Character &c)
 {
-    return _name;
+	*this = c;
 }
 
-void Character::equip(AMateria* m)
+std::string const &Character::getName(void) const
 {
-    if (!m)
-        return;
-
-    //buscar espacio vacío en el inventario (4)
-    for (int i = 0; i < 4; ++i)
-    {
-        if (!_inventory[i])
-        {
-            _inventory[i] = m;
-            return;
-        }
-    }
+	return this->_name;
+}
+void Character::equip(AMateria *m)
+{	
+	for (size_t i = 0; i < 4; i++)
+	{
+		if (this->_materias[i] == NULL)
+		{
+			this->_materias[i] = m;
+			return;
+		}
+	}
 }
 
 void Character::unequip(int idx)
 {
-    if (idx < 0 || idx >= 4 || !_inventory[idx])
-        return;
+	if (idx > 4)
+		return;
+	if (_materias[idx] != NULL)
+	{
+		saveAdress(_materias[idx]);
+		_materias[idx] = NULL;
+		return ;
+	}
+	std::cout << "Nothing to unequip!" << std::endl;
+}
+void Character::use(int idx, ICharacter &target)
+{
+	if (idx < 0 || idx >= 4 || !_materias[idx])
+	{
+		std::cout << "Invalid index or no materia equipped at index " << idx << std::endl;
+		return;
+	}
+	
+	std::string type = _materias[idx]->getType();
 
-    //buscar espacio vacio en dropped (100)
-    for (int i = 0; i < 100; ++i)
+	if (type == "ice")
     {
-        if (!_dropped[i])
-        {
-            _dropped[i] = _inventory[idx];
-            break;
-        }
-    }
-
-    //borro materia del inventario
-    _inventory[idx] = NULL;
+	    Ice ice;
+	    ice.use(target);
+	}
+    else if (type == "cure")
+    {
+	    Cure cure;
+	    cure.use(target);
+	}
+    else
+	    std::cout << "Unknown materia type: " << type << std::endl;
 }
 
-void Character::use(int idx, ICharacter& target)
+void Character::saveAdress(AMateria *adress)
 {
-    if (idx >= 0 && idx < 4 && _inventory[idx])
-        _inventory[idx]->use(target);
+	for (size_t i = 0; i < 50; i++)
+	{
+		_addresses[i] = adress;
+	}
 }

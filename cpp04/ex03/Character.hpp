@@ -4,24 +4,22 @@
 #include "ICharacter.hpp"
 #include "AMateria.hpp"
 
-class Character : public ICharacter
+class Character: public ICharacter
 {
     private:
-        std::string _name;
-        AMateria* _inventory[4];
-        AMateria* _dropped[100]; //esto es una forma easy de evitarse leaks
-
-    public:
-        Character(std::string const & name);
-        Character(Character const & other);
-        Character & operator=(Character const & other);
-        virtual ~Character();
-
-        std::string const & getName() const;
-
+        AMateria	*_addresses[100];
+        void	saveAdress(AMateria *adress);
+    public:	
+        Character(void);
+        Character(std::string name);
+        Character(const Character& c);
+        
+        Character &operator=(const Character& c);
+        ~Character(void);
+        std::string const& getName() const;
         void equip(AMateria* m);
         void unequip(int idx);
-        void use(int idx, ICharacter& target);
+        void use (int idx, ICharacter& target);
 };
 
 #endif
