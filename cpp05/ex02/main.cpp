@@ -3,60 +3,73 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include <iostream>
 
-int main(void)
+int main()
 {
-	std::string target = "el mundo";
+	std::string target = "objetivo";
 
 	Bureaucrat jefe("Jefe", 1);
-	Bureaucrat trabajadorHumilde("Trabajador humilde", 70);
-	Bureaucrat trabajadorMediocre("Trabajador mediocre", 140);
+	Bureaucrat humilde("Humilde", 70);
+	Bureaucrat mediocre("Mediocre", 150);
 
-	std::cout << "\n===== SHRUBBERY CREATION =====" << std::endl;
+	std::cout << "\n========= SHRUBBERY 145, 137=========" << std::endl;
 	{
-		ShrubberyCreationForm sf("jardín");
+		ShrubberyCreationForm form(target);
 
-		trabajadorMediocre.executeForm(sf);
-		trabajadorMediocre.signForm(sf);
-		trabajadorMediocre.executeForm(sf);
+		std::cout << "\nCaso 1: Mediocre no puede firmar ni ejecutar" << std::endl;
+		mediocre.signForm(form);
+		try { form.execute(mediocre); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 
-		jefe.signForm(sf);
-		jefe.executeForm(sf);
+		std::cout << "\nCaso 2: Humilde puede ejecutar pero form no está firmado aún" << std::endl;
+		try { form.execute(humilde); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 
-		std::cout << sf << std::endl;
+		std::cout << "\nCaso 3: Humilde firma y puede ejecutar" << std::endl;
+		form.beSigned(humilde);
+		try { form.execute(humilde); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 	}
 
-	std::cout << "\n===== ROBOTOMY REQUEST =====" << std::endl;
+	std::cout << "\n========= ROBOTOMY 72, 45=========" << std::endl;
 	{
-		RobotomyRequestForm rrf("cliente");
+		RobotomyRequestForm form(target);
 
-		trabajadorHumilde.signForm(rrf);
-		jefe.signForm(rrf);
+		std::cout << "\nCaso 1: Mediocre no puede firmar ni ejecutar" << std::endl;
+		mediocre.signForm(form);
+		try { form.execute(mediocre); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 
-		trabajadorHumilde.executeForm(rrf);
-		jefe.executeForm(rrf);
+		std::cout << "\nCaso 2: Humilde puede ejecutar pero no está firmado aún" << std::endl;
+		try { form.execute(humilde); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 
-		std::cout << rrf << std::endl;
+		std::cout << "\nCaso 3: Humilde firma pero no puede ejecutar" << std::endl;
+		form.beSigned(humilde);
+		if (form.isSigned())
+			std::cout << "✅ El formulario está firmado correctamente." << std::endl;
+		else
+			std::cout << "❌ El formulario NO está firmado." << std::endl;
+
+		try { form.execute(humilde); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
+
+		std::cout << "\nCaso 4: Jefe firma y ejecuta" << std::endl;
+		form.beSigned(jefe);
+		try { form.execute(jefe); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 	}
 
-	std::cout << "\n===== PRESIDENTIAL PARDON =====" << std::endl;
+	std::cout << "\n========= PRESIDENTIAL 25, 5=========" << std::endl;
 	{
-		PresidentialPardonForm ppf("enemigo");
+		PresidentialPardonForm form(target);
 
-		trabajadorHumilde.signForm(ppf);
+		std::cout << "\nCaso 1: Mediocre no puede firmar ni ejecutar" << std::endl;
+		mediocre.signForm(form);
+		try { form.execute(mediocre); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 
-		try {
-			ppf.execute(jefe);
-		} catch (const std::exception &e) {
-			std::cerr << e.what() << std::endl;
-		}
+		std::cout << "\nCaso 2: Humilde no puede firmar asi que jefe firma y humilde intenta ejecutar y no puede" << std::endl;
+		form.beSigned(jefe);
+		try { form.execute(humilde); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 
-		trabajadorHumilde.executeForm(ppf);
-		jefe.executeForm(ppf);
-
-		std::cout << ppf << std::endl;
+		std::cout << "\nCaso 4: Jefe firma y ejecuta" << std::endl;
+		form.beSigned(jefe);
+		try { form.execute(jefe); } catch (const std::exception &e) { std::cerr << e.what() << std::endl; }
 	}
 
 	return 0;
 }
-

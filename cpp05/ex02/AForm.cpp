@@ -10,8 +10,6 @@ AForm::AForm(const std::string &name, int signGrade, int execGrade)
         throw GradeTooLowException();
 }
 
-AForm::AForm() : _name(""), _isSigned(false), _signGrade(75), _execGrade(75) {}
-
 AForm::AForm(const AForm &src)
     : _name(src._name), _isSigned(src._isSigned),
       _signGrade(src._signGrade), _execGrade(src._execGrade) {}
