@@ -43,8 +43,12 @@ void Form::beSigned(const Bureaucrat &b)
 
 std::ostream &operator<<(std::ostream &out, const Form &form)
 {
-    out << "Form \"" << form.getName() << "\", signed: " << (form.isSigned() ? "yes" : "no")
-        << ", grade to sign: " << form.getSignGrade()
+    out << "Form \"" << form.getName() << "\", signed: ";
+    if (form.isSigned())
+        out << "yes";
+    else
+        out << "no";
+    out << ", grade to sign: " << form.getSignGrade()
         << ", grade to execute: " << form.getExecGrade();
     return out;
 }
