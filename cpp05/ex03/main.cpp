@@ -1,8 +1,11 @@
 #include "Intern.hpp"
 #include "Bureaucrat.hpp"
+#include <stdlib.h>
+#include <time.h>
 
 int main()
 {
+	srand(time(NULL));
 	Intern someRandomIntern;
 	Bureaucrat boss("Jefe", 1);
 

@@ -4,9 +4,12 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 
 int main()
 {
+	srand(time(NULL));
 	std::string target = "objetivo";
 
 	Bureaucrat jefe("Jefe", 1);
