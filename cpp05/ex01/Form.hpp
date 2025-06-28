@@ -13,9 +13,9 @@ class Form
         bool _isSigned;
         const int _signGrade;
         const int _execGrade;
+        Form();
 
     public:
-        Form();
         ~Form();
         Form(const std::string &name, int signGrade, int execGrade);
         Form(const Form &src);
