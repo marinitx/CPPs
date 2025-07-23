@@ -1,9 +1,13 @@
 #pragma once
 
 #include <iostream>
-#include <limits> //numeric limits
-#include <cctype> // For std::isdigit, std::isprint
-#include <string>
+#include <cstdlib>
+#include <climits>
+#include <limits.h>
+#include <cfloat>
+#include <limits>
+#include <cctype>
+#include <cmath>
 
 class ScalarConverter
 {
@@ -15,9 +19,6 @@ class ScalarConverter
 
     public:
         static void convert(const std::string& literal);
-        const char charConvert(const std::string &c);
         int intConvert(const std::string &i);
-        const float floatConvert(const std::string &f);
-        const double doubleConvert(const std::string &d);
 
 };
