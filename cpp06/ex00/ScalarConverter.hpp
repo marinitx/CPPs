@@ -1,11 +1,11 @@
 #pragma once
 
+#include <limits.h>
+#include <limits>
 #include <iostream>
 #include <cstdlib>
 #include <climits>
-#include <limits.h>
 #include <cfloat>
-#include <limits>
 #include <cctype>
 #include <cmath>
 
@@ -19,6 +19,5 @@ class ScalarConverter
 
     public:
         static void convert(const std::string& literal);
-        int intConvert(const std::string &i);
 
 };
