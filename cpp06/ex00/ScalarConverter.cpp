@@ -1,17 +1,26 @@
 #include "ScalarConverter.hpp"
 
+
+// COMPROBACIONES ********
 static bool isChar(const std::string &s)
 {
     return s.length() == 1 && !std::isdigit(s[0]);
 }
 
+/*
+convierte s a un long int
+guarda en end un puntero al priemr caracter que no puede convertir
+ex. 123hola apunta a h (return false)
+123 apunta a '\0' (return true)
+*/
 static bool isInt(const std::string &s)
 {
     char *end;
     std::strtol(s.c_str(), &end, 10);
-    return *end == '\0' && end != s.c_str();
+    return *end == '\0' && end != s.c_str(); //no haya quedado nada sin convertir y al menos algo se haya convertido (true)
 }
 
+//convierte en double y comprueba que al final haya una f y nada mas después
 static bool isFloat(const std::string &s)
 {
     if (s == "+inff" || s == "-inff" || s == "nanf")
@@ -30,6 +39,8 @@ static bool isDouble(const std::string &s)
     return *end == '\0';
 }
 
+
+// IMPRIME ********
 static void printChar(int c)
 {
     std::cout << "char: ";
@@ -62,6 +73,15 @@ static void printDouble(double val)
 
 void ScalarConverter::convert(const std::string &literal)
 {
+    if (literal == "nan")
+    {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: nanf" << std::endl;
+        std::cout << "double: nan" << std::endl;
+        return;
+    }
+
     if (isChar(literal))
     {
         char c = literal[0];
