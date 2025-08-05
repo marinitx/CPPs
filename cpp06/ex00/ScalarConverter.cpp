@@ -73,7 +73,7 @@ static void printDouble(double val)
 
 void ScalarConverter::convert(const std::string &literal)
 {
-    if (literal == "nan")
+    if (literal == "nan" || literal == "nanf")
     {
         std::cout << "char: impossible" << std::endl;
         std::cout << "int: impossible" << std::endl;
@@ -92,6 +92,13 @@ void ScalarConverter::convert(const std::string &literal)
         return;
     }
 
+    /* 
+    convierte a long (ya tiene en cuenta que no hay basurilla)
+    imprime char
+    imprime si es posible int
+    imprime float y llama a printfloat por si hay que ponerle la f
+    imprime double y llama a printdouble para poner el .0
+    */
     if (isInt(literal))
     {
         long val = std::strtol(literal.c_str(), NULL, 10);
@@ -107,6 +114,14 @@ void ScalarConverter::convert(const std::string &literal)
         return;
     }
 
+    /*
+    comprueba que sea float, crea un string sin la f del final
+    convierte el string a double
+    convierte el double en float
+    imprime char
+    imprime int siempre y cuando esté entre los valores límite
+    imprime float le añade la f e imprime double y le añade .0
+    */
     if (isFloat(literal))
     {
         std::string copy = literal.substr(0, literal.length() - 1);
