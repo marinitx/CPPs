@@ -1,5 +1,6 @@
 #include "Base.hpp"
 
+//devuelve aleatoriamente una instancia de a b o c como puntero a Base
 Base* generate(void)
 {
     srand(static_cast<unsigned int>(time(NULL)));
@@ -20,6 +21,8 @@ Base* generate(void)
     return NULL; //se supone que no llega nunca pero así me evito warnings
 }
 
+//identifica el tipo real de objeto (a b o c) que apunta a p
+//dynamic cast solo funciona con clases derivadas (lanza excepciones con ref y devuelve null con ptr)
 void identify(Base* p)
 {
     if (dynamic_cast<A*>(p))
@@ -32,6 +35,7 @@ void identify(Base* p)
         std::cout << "Unknown type" << std::endl;
 }
 
+//lo mismo pero con referencia
 void identify(Base& p)
 {
     try
@@ -60,3 +64,9 @@ void identify(Base& p)
     
     std::cout << "Unknown type" << std::endl;
 }
+
+/*
+dynamic_cast = "comprueba si realmente es de ese tipo (seguro)"
+static_cast = "confía en que tú sabes lo que estás haciendo"
+reinterpret_cast = "haz lo que te digo aunque tenga sentido cero"
+*/
