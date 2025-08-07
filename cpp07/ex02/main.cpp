@@ -1,11 +1,12 @@
 #include "Array.hpp"
 
-int main() {
+int main()
+{
     //array vacio
     Array<int> emptyArray;
     std::cout << "Empty array size: " << emptyArray.size() << std::endl;
 
-    //array de 5 default
+    //array de 5 números
     Array<int> intArray(5);
     std::cout << "Int array size: " << intArray.size() << std::endl;
     for (unsigned int i = 0; i < intArray.size(); ++i)

@@ -18,17 +18,17 @@ int main()
     std::string stringArray[] = {"holi", "que tal", "bien gracias"};
     double doubleArray[] = {1.1, 2.2, 3.3};
 
-    std::cout << "Int Array - Original:" << std::endl;
+    std::cout << "este es el array de ints:" << std::endl;
     iter(intArray, 5, printElement<int>);
 
-    std::cout << "Int Array - Incremented:" << std::endl;
+    std::cout << "este es el array de ints incrementado" << std::endl;
     iter(intArray, 5, incrementElement<int>);
     iter(intArray, 5, printElement<int>);
 
-    std::cout << "String Array:" << std::endl;
+    std::cout << "este es el array de strings:" << std::endl;
     iter(stringArray, 3, printElement<std::string>);
 
-    std::cout << "Double Array:" << std::endl;
+    std::cout << "este es el array de doubles:" << std::endl;
     iter(doubleArray, 3, printElement<double>);
 
     return 0;

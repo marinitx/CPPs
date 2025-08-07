@@ -23,11 +23,13 @@ class Array
         }
         Array& operator=(const Array& other)
         {
-            if (this != &other) {
+            if (this != &other)
+            {
                 delete[] _array;
                 _size = other._size;
                 _array = new T[_size]();
-                for (unsigned int i = 0; i < _size; ++i) {
+                for (unsigned int i = 0; i < _size; ++i)
+                {
                     _array[i] = other._array[i];
                 }
             }
@@ -37,7 +39,8 @@ class Array
         //el no constante es para leer y escribir
         T& operator[](unsigned int index)
         {
-            if (index >= _size) {
+            if (index >= _size)
+            {
                 throw std::out_of_range("Index out of range");
             }
             return _array[index];
@@ -45,8 +48,9 @@ class Array
         //necesito tmb este porque sino no me deja acceder a elementos de arrays constanes
         //el constante es para solo poder leer
         const T& operator[](unsigned int index) const {
-            if (index >= _size) {
-                throw std::out_of_range("Index out of bounds");
+            if (index >= _size)
+            {
+                throw std::out_of_range("Index out of range");
             }
             return _array[index];
         }
